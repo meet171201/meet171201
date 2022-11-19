@@ -1,0 +1,92 @@
+{% extends 'seller_header.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<!-- inner page section -->
+      <section class="inner_page_head">
+         <div class="container_fuild">
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="full">
+                     <h3>Edit product</h3>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      <!-- end inner page section -->
+      <!-- why section -->
+      <section class="why_section layout_padding">
+         <div class="container">
+         
+            <div class="row">
+               <div class="col-lg-8 offset-lg-2">
+                  <div class="full">
+                     {% if msg %}
+                        <b style="color: red;">{{msg}}</b>
+                     {% endif %}
+                     <form action="{% url 'seller_edit_product' pk=product.pk %}" method="POST"
+                        enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <fieldset>
+                           <input type="text"  name="product_category"  value="{{product.product_category}}"   />
+                           
+                           <input type="text"  name="product_type"  value="{{product.product_type}}"   />
+                     
+                           <select name="product_size">
+                              {% if product.product_size == "s" %}
+                                 <option value="s" selected>small</option>
+                                 <option value="m">medium</option>
+                                 <option value="l">large</option>
+                              
+                              {% elif product.product_size == "m" %}
+                                 <option value="s">small</option>
+                                 <option value="m" selected>medium</option>
+                                 <option value="l">large</option>
+                              
+                              {% elif product.product_size == "l" %}
+                                 <option value="s">small</option>
+                                 <option value="m">medium</option>
+                                 <option value="l" selected>large</option>
+                              
+                              {% else %}
+                                 <option><---Select Product size---></option>
+                                    <option value="s">small</option>
+                                    <option value="m">medium</option>
+                                    <option value="l">large</option>
+                                 
+                              {% endif %}
+                              
+                           
+                           </select>
+                                    
+                           <input type="text" placeholder="Enter product price" name="product_price" required  value="{{product.product_price}}" />
+                     
+                               
+                           <textarea placeholder="Enter Product Description" name="product_desc" required>{{product.product_desc}}
+                           </textarea> 
+
+                           <img src="{{product.product_image.url}}"width="100px" height="100px">
+
+                           <input type="file" name="product_image" /> 
+                           <button value="submit" name="signup" align="center">Update  product</button><div class="btn-box">
+                        </fieldset>
+                     </form>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      <!-- end why section -->
+      <!-- jQery -->
+      <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+      <!-- popper js -->
+      <script src="{% static 'js/popper.min.js' %}"></script>
+      <!-- bootstrap js -->
+      <script src="{% static 'js/bootstrap.js' %}"></script>
+      <!-- custom js -->
+      <script src="{% static 'js/custom.js' %}"></script>
+   </body>
+</html>
+{% endblock %}

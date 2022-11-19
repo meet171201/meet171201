@@ -1,0 +1,106 @@
+{% extends 'seller_header.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<!-- inner page section -->
+      <section class="inner_page_head">
+         <div class="container_fuild">
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="full">
+                     <h3>Add product</h3>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      <!-- end inner page section -->
+      <!-- why section -->
+      <section class="why_section layout_padding">
+         <div class="container">
+         
+            <div class="row">
+               <div class="col-lg-8 offset-lg-2">
+                  <div class="full">
+                     {% if msg %}
+                        <b style="color: red;">{{msg}}</b>
+                     {% endif %}
+                     <form action="{% url 'seller_add_product' %}" method="post"
+                        enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <fieldset>
+                           <select name="product_category">
+                              <option><---Select Product category---></option>
+                              <option value="Men">Men</option>
+                              <option value="Women">Women</option>
+                              <option value="Kid">Kid</option>
+                           </select>
+                           <select name="product_type">
+                              <option><---Select Product Type---></option>
+                              <option value="jeans">Jeans</option>
+                              <option value="tshirt">Tshirt</option>
+                              <option value="shirt">Shirt</option>
+                           </select>
+                           <select name="product_size">
+                              <option><---Select Product size---></option>
+                              <option value="s">small</option>
+                              <option value="m">medium</option>
+                              <option value="l">large</option>
+                           </select>
+                           <input type="text" placeholder="Enter product price" name="product_price" required />
+                     
+                               
+                           <textarea placeholder="Enter Product Description" name="product_desc" required>
+                           </textarea> 
+                           
+                           
+                           <input type="file" name="product_image" required />
+                           <button value="submit" name="signup" align="center">Add product</button><div class="btn-box">
+                        </fieldset>
+                     </form>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      <!-- end why section -->
+      
+      <!-- arrival section -->
+      <section class="arrival_section">
+         <div class="container">
+            <div class="box">
+               <div class="arrival_bg_box">
+                  <img src="{% static 'images/arrival-bg.png' %}" alt="">
+               </div>
+               <div class="row">
+                  <div class="col-md-6 ml-auto">
+                     <div class="heading_container remove_line_bt">
+                        <h2>
+                           #NewArrivals
+                        </h2>
+                     </div>
+                     <p style="margin-top: 20px;margin-bottom: 30px;">
+                        Vitae fugiat laboriosam officia perferendis provident aliquid voluptatibus dolorem, fugit ullam sit earum id eaque nisi hic? Tenetur commodi, nisi rem vel, ea eaque ab ipsa, autem similique ex unde!
+                     </p>
+                     <a href="">
+                     Shop Now
+                     </a>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      <!-- end arrival section -->
+
+      <!-- jQery -->
+      <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+      <!-- popper js -->
+      <script src="{% static 'js/popper.min.js' %}"></script>
+      <!-- bootstrap js -->
+      <script src="{% static 'js/bootstrap.js' %}"></script>
+      <!-- custom js -->
+      <script src="{% static 'js/custom.js' %}"></script>
+   </body>
+</html>
+{% endblock %}

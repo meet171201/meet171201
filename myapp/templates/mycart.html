@@ -1,0 +1,101 @@
+ 
+{% extends 'header.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<!-- inner page section -->
+      <section class="inner_page_head">
+         <div class="container_fuild">
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="full">
+                     <h3>My Cart</h3>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      <!-- end inner page section -->
+      <!-- product section -->
+      <section class="product_section layout_padding">
+         <div class="container">
+            <div class="heading_container heading_center">
+               {% if carts%}
+               <h2>
+                  Your <span> Cart Products</span>
+               </h2>
+               {% else %}
+               <h2>
+                  No <span>products In Cart</span>
+               </h2>
+               {% endif %}
+
+            </div>
+            {% if msg %}
+               <b style="color: red;">{{msg}}</b>
+            {% endif %}
+            <div class="row">
+               {% for i in carts %}
+               <div class="col-sm-6 col-md-4 col-lg-5 ">
+                  <div class="box ">
+                     
+                     <div class="img-box">
+                        <img src="{{ i.product.product_image.url }}" alt="">
+                     </div>
+                     <div class="detail-box">
+                        <h5>
+                           {{i.product.product_category}}
+                        </h5>
+                        <h6>
+                           {{i.product.product_price}}
+                        </h6>
+                        
+                     </div>
+                     <div class="detail-box">
+                        <form name="cart" method="post" action="{% url 'change_qty' pk=i.pk %}">
+                           {% csrf_token %}
+                           <input type="hidden" name="pk" value="{{i.pk}}">
+                           <label>Product Quntity:</label>
+                           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                           <input type="number" name="product_qty" value="{{i.product_qty}}" min="1" max="10" style="padding:1px,1px,1px,1px; width: 25%;height: 10%; margin-left : 10%;" onchange="this.form.submit();">
+                        </form>
+                     </div>
+                     <div class="detail-box">
+                        <h6>
+                           Total Price:
+                        </h6>
+                        <h6>
+                           {{i.total_price}}
+                        </h6>
+                        
+                     </div>
+                  </div>
+               </div>
+             {% endfor %} 
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-12">
+               <div class="btn-box" >
+                  <form method="POST" action="{% url 'pay' %}">
+                     {% csrf_token %}
+                     <label><h3>Net Price To Pay: {{net_price}}</h3></label>
+                     <input type="hidden" name="amount" value="{{net_price}}">
+                     <input type="submit" name="action" value="Buy Now">
+                      
+                  </form>
+               </div> 
+            </div>  
+         </div>
+      </section>
+      <!-- end product section -->
+      <!-- jQery -->
+      <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+      <!-- popper js -->
+      <script src="{% static 'js/popper.min.js' %}"></script>
+      <!-- bootstrap js -->
+      <script src="{% static 'js/bootstrap.js' %}"></script>
+      <!-- custom js -->
+      <script src="{% static 'js/custom.js' %}"></script>
+   </body>
+</html>
+{% endblock %}
